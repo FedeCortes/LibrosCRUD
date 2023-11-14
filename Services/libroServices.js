@@ -1,21 +1,32 @@
-const fs = require('fs');
+const Libro = require("../models/Libro");
 
-// Función para cargar los libros desde el archivo JSON al inicio de la aplicación
-function cargarLibros() {
-  try {
-    const librosJSON = fs.readFileSync("libros.json", "utf-8");
-    return JSON.parse(librosJSON);
-  } catch (error) {
-    return [];
-  }
+
+function createOne({author,title,description}) {
+  return Libro.createOne({author,title,description})
 }
 
-// Función para guardar la lista de libros en el archivo JSON
-function guardarLibros(libros) {
-  fs.writeFileSync("libros.json", JSON.stringify(libros, null, 2), "utf-8");
+function find(author,title){
+
+  return Libro.find({author,title})
+}
+
+function get(id){
+  Libro.findById(id)
+}
+
+function findByIdAndDelete(id){
+  Libro.findByIdAndDelete(id)
+}
+
+function findByIdAndUpdate(id, author, title, description){
+  
+  return Libro.findByIdAndUpdate(id, {author,title,description})
 }
 
 module.exports = {
-  cargarLibros,
-  guardarLibros,
+  createOne,
+  find,
+  get,
+  findByIdAndDelete,
+  findByIdAndUpdate
 };
