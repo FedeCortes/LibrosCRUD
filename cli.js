@@ -7,7 +7,7 @@ const validacionMiddleware = require('./middlewares/validacionMiddleware');
 //COMANDOS
 //1- create
 yargs
-  .command('createOne', 'Crea un libro. Parametros: (--author / --title / --description)', (yargs) => {
+  .command('createOne', 'Crea un libro. Parametros: (--author , --title , --description)', (yargs) => {
     yargs
       .option('author', {
         alias: 'a',
@@ -53,7 +53,7 @@ yargs
 
 
 //2- Find
-  .command('find', 'Muestra todos los libros. Se puede filtrar por (--author, --title)', (yargs) => {
+  .command('findAll', 'Muestra todos los libros. Se puede filtrar por (--author , --title)', (yargs) => {
     yargs
     .option('author', {
       alias: 'author',
@@ -77,7 +77,7 @@ yargs
 
 })
 //3- get 
-  .command('get', 'Obtener un libro por id. Parametros: (--id)', (yargs) => {
+  .command('getOne', 'Obtener un libro por id. Parametros: (--id)', (yargs) => {
     yargs
     .option('id', {
       alias: 'id',
@@ -90,26 +90,26 @@ yargs
     }
   )
 //4- update
-  .command('findByIdAndUpdate', 'Actualizar un libro. Parametros: (--id / --nuevoAuthor / --nuevoTitulo / --nuevaDescription)', (yargs) => {
+  .command('update', 'Actualizar un libro. Parametros: (--id , --author , --title , --description)', (yargs) => {
     yargs
     .option('id', {
       alias: 'id',
       describe: 'id del libro',
       demandOption: true,
     })
-    .option('nuevoAuthor', {
+    .option('author', {
       alias: 'na',
       describe: 'id del libro',
       demandOption: true,
       type:"string",
     })
-    .option('nuevoTitulo', {
+    .option('titulo', {
       alias: 'nt',
       describe: 'id del libro',
       demandOption: true,
       type:"string",
     })
-    .option('nuevaDescription', {
+    .option('description', {
       alias: 'nd',
       describe: 'nueva descripcion',
       demandOption: true,
@@ -118,22 +118,22 @@ yargs
   }, (argv) => {
 
     try{
-      validacionMiddleware.esAlfabeticoConEspacios(argv.nuevoAuthor)
+      validacionMiddleware.esAlfabeticoConEspacios(argv.author)
       
-      validacionMiddleware.esAlfanumerico(argv.nuevoTitulo)
+      validacionMiddleware.esAlfanumerico(argv.titulo)
       
-      validacionMiddleware.esMenorA(argv.nuevaDescription, 150)
-      validacionMiddleware.esMenorA(argv.nuevoAuthor, 50)
-      validacionMiddleware.esMenorA(argv.nuevoTitulo, 50)
+      validacionMiddleware.esMenorA(argv.description, 150)
+      validacionMiddleware.esMenorA(argv.author, 50)
+      validacionMiddleware.esMenorA(argv.title, 50)
 
-    const libro = findByIdAndUpdate(argv.id, argv.nuevoAuthor, argv.nuevoTitulo, argv.nuevaDescription)
+    const libro = findByIdAndUpdate(argv.id, argv.author, argv.title, argv.description)
     console.log("Libro actualizado correctamente" ,libro)
   } catch (error) {
     console.error("Ocurrio un error al crear el libro " + error.message ? error.message : error);
   }
   })
 //5- delete
-  .command('findByIdAndDelete', 'Borrar un libro. Parametros: (--id)', (yargs) => {
+  .command('delete', 'Borrar un libro. Parametros: (--id)', (yargs) => {
     yargs
       .option('id', {
         alias: 'id',
