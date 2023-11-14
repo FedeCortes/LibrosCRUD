@@ -72,12 +72,10 @@ yargs
     })
   }, (argv) => {
 
- 
     const respuesta = find(argv.author, argv.title);
     console.log(respuesta)
-  
- 
-  })
+
+})
 //3- get 
   .command('get', 'Obtener un libro por id. Parametros: (--id)', (yargs) => {
     yargs

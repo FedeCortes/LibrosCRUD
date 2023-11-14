@@ -56,7 +56,7 @@ const Libro = {
     
         console.log("El libro ha sido eliminado.");
       } else {
-        console.log("No se encontró ningún libro con el ID proporcionado.");
+        console.log("No se encontró ningún libro.");
       }
   },
 
@@ -67,7 +67,7 @@ const Libro = {
       console.log("El libro buscado es:")
       console.log(libroEncontrado)
     } else {
-      console.log("No se encontró ningún libro con el ID proporcionado.")
+      console.log("No se encontró ningún libro.")
   }
   },
 
@@ -86,7 +86,10 @@ const Libro = {
   
         return authorCoincide && tituloCoincide;
       });
-      
+      if (filtrados.length === 0) {
+      console.error(`Error: No se encontraron libros con esos datos`);
+      process.exit(1); // Salir del programa con código de error
+      }
       return filtrados
     }
   }
