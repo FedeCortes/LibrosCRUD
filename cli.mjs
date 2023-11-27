@@ -361,22 +361,22 @@ inquirer
 
         case 'Obtener un libro por ID':
           try {
-            const libros = await booksFetch();
+            const books = await booksFetch();
         
-            if (libros.length === 0) {
+            if (books.length === 0) {
               console.log('No se encontraron libros.');
             } else {
-              const opcionesLibros = libros.map(libro => {
+              const optionBooks = books.map(book => {
                 return {
-                  name: `ID: ${libro.id} - Título: ${libro.title}`,
-                  value: libro,
+                  name: `ID: ${book.id} - Título: ${book.title}`,
+                  value: book,
                 };
               });
         
-              const respuestasBuscarPorId = await inquirer.prompt([
+              const AnswerFindById = await inquirer.prompt([
                 {
                   type: 'list',
-                  name: 'opcion',
+                  name: 'option',
                   message: 'Selecciona una opción:',
                   choices: [
                     { name: 'Ingresar una ID directamente', value: 'ingresarId' },
@@ -385,10 +385,10 @@ inquirer
                 },
               ]);
         
-              let libroSeleccionado;
-              if (respuestasBuscarPorId.opcion === 'ingresarId') {
+              let selectedBook;
+              if (AnswerFindById.option === 'ingresarId') {
                 // Preguntar por la ID directamente
-                const respuestaId = await inquirer.prompt([
+                const idAnswer = await inquirer.prompt([
                   {
                     type: 'input',
                     name: 'id',
@@ -397,23 +397,23 @@ inquirer
                 ]);
         
                 // Buscar el libro por ID
-                libroSeleccionado = libros.find(libro => libro.id === respuestaId.id);
+                selectedBook = books.find(book => book.id === idAnswer.id);
               } else {
                 // Preguntas para seleccionar de la lista
-                const respuestasSeleccion = await inquirer.prompt([
+                const selectedAnswer = await inquirer.prompt([
                   {
                     type: 'list',
-                    name: 'libroSeleccionado',
+                    name: 'selectedBook',
                     message: 'Selecciona un libro para ver más información:',
-                    choices: opcionesLibros,
+                    choices: optionBooks,
                   },
                 ])
         
                 // El libro seleccionado estará disponible en respuestasSeleccion.libroSeleccionado
-                libroSeleccionado = respuestasSeleccion.libroSeleccionado;
+                selectedBook = selectedAnswer.selectedBook;
               }
         
-              console.log('Información detallada del libro seleccionado:', libroSeleccionado);
+              console.log('Información detallada del libro seleccionado:', selectedBook);
             }
           } catch (error) {
             console.error("Ocurrió un error: " + error);
@@ -421,20 +421,20 @@ inquirer
           break;
         
       case 'Actualizar un libro':
-        const libros = await booksFetch();
+        const books = await booksFetch();
         // Preguntas para actualizar un libro
-        const opcionesLibros = libros.map(libro => {
+        const optionBooks = books.map(book => {
           return {
-              name: `Título: ${libro.title} - Autor: ${libro.author}`,
-              value: libro
+              name: `Título: ${book.title} - Autor: ${book.author}`,
+              value: book
           }
         })
-        const respuestasActualizar = await inquirer.prompt([
+        const updateAnswers = await inquirer.prompt([
           {
             type: 'list',
             name: 'id',
             message: 'Selecciona un libro para ver más información:',
-            choices: opcionesLibros
+            choices: optionBooks
         },
           {
             type: 'input',
@@ -558,7 +558,7 @@ inquirer
           },
           {
             type: 'input',
-            name: 'respuesta',
+            name: 'answer',
             message: '¿Estás seguro que quieres actualizar el libro? (s/n):',
             validate: (value) => {
               
@@ -575,22 +575,22 @@ inquirer
           },
         ]);
       
-        if (respuestasActualizar.respuesta.toLowerCase() === 'n') {
+        if (updateAnswers.answer.toLowerCase() === 'n') {
           console.log('Cancelaste la operación');
           break;
-        } else if (respuestasActualizar.respuesta.toLowerCase() === 's') {
+        } else if (updateAnswers.answer.toLowerCase() === 's') {
           try {
             // Lógica de actualización
             await findByIdAndUpdate(
-              respuestasActualizar.id,
-              respuestasActualizar.author,
-              respuestasActualizar.title,
-              respuestasActualizar.description,
-              respuestasActualizar.year,
-              respuestasActualizar.genre,
-              respuestasActualizar.rating,
-              respuestasActualizar.numPages,
-              respuestasActualizar.format,
+              updateAnswers.id,
+              updateAnswers.author,
+              updateAnswers.title,
+              updateAnswers.description,
+              updateAnswers.year,
+              updateAnswers.genre,
+              updateAnswers.rating,
+              updateAnswers.numPages,
+              updateAnswers.format,
             )
               .then(()=>{
                 console.log("Libro actualizado correctamente")
@@ -609,32 +609,32 @@ inquirer
       
     case 'Borrar un libro':
       try {
-        const libros = await booksFetch();
+        const books = await booksFetch();
 
-        if (libros.length === 0) {
+        if (books.length === 0) {
             console.log('No se encontraron libros.');
         } else {
-            const opcionesLibros = libros.map(libro => {
+            const optionBooks = books.map(book => {
                 return {
-                    name: `ID: ${libro.id} - Título ${libro.title}`,
-                    value: libro // El valor asociado será el objeto completo del libro
+                    name: `ID: ${book.id} - Título ${book.title}`,
+                    value: book // El valor asociado será el objeto completo del libro
                 };
             });
 
-            const respuestasSeleccion = await inquirer.prompt([
+            const selectedAnswer = await inquirer.prompt([
                 {
                     type: 'list',
-                    name: 'libroSeleccionado',
+                    name: 'selectedBook',
                     message: 'Selecciona un libro para ver más información:',
-                    choices: opcionesLibros
+                    choices: optionBooks
                 }
             ]);
 
             // El libro seleccionado estará disponible en respuestasSeleccion.libroSeleccionado
-            const confirmacion = await inquirer.prompt([
+            const confirmation = await inquirer.prompt([
               {
                 type: 'input',
-                name: 'respuesta',
+                name: 'answer',
                 message: 'Estas seguro que queres borrar el libro? s/n:',
                 validate: (value) => {
                   validacionMiddleware.isConfirmation(value)
@@ -643,13 +643,13 @@ inquirer
               },
             ]);
       
-            if(confirmacion.respuesta =="n"){
+            if(confirmation.answer =="n"){
               console.log("Cancelaste la operacion")
               break;
-            }else if(confirmacion.respuesta=="s"){
-              const libroSeleccionado = respuestasSeleccion.libroSeleccionado;
-              const libroEliminado = await findByIdAndDelete(libroSeleccionado.id);
-            console.log("Libro borrado "+libroEliminado)
+            }else if(confirmation.answer=="s"){
+              const selectedBook = selectedAnswer.selectedBook;
+              const deletedBook = await findByIdAndDelete(selectedBook.id);
+            console.log("Libro borrado "+deletedBook)
               break;
       
             }
