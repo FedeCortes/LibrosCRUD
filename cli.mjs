@@ -637,7 +637,7 @@ inquirer
                 name: 'respuesta',
                 message: 'Estas seguro que queres borrar el libro? s/n:',
                 validate: (value) => {
-                  validacionMiddleware.confirmacion(value)
+                  validacionMiddleware.isConfirmation(value)
                   return true;
                 },
               },
