@@ -15,6 +15,7 @@ Características
     Integración con MongoDB para el almacenamiento de datos.
     Servidor Express.js para exponer puntos finales de la API.
     Interfaz de línea de comandos mediante Inquirer para la interacción del usuario.
+    Middleware `validacionMiddleware` para validar los datos antes de procesar las operaciones en la base de datos.
 
 
 Instalación 
