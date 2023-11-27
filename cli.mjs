@@ -23,8 +23,8 @@ connectToServer()
   .then(() => migration())
   .then(() => showMainMenu())
 
+  
   async function connectToServer(){
-
     try{
     const app = express();
   
@@ -136,7 +136,7 @@ inquirer
 .prompt([
   {
     type: 'list',
-    name: 'opcion',
+    name: 'option',
     message: 'Seleccione una opción:',
     choices: [
       'Crear un libro',
@@ -148,11 +148,11 @@ inquirer
     ],
   },
 ])
-.then(async (respuestas) => {
-  switch (respuestas.opcion) {
+.then(async (answers) => {
+  switch (answers.option) {
     case 'Crear un libro':
     // Preguntas para crear un libro
-    const respuestasCrear = await inquirer.prompt([
+    const createAnswer = await inquirer.prompt([
       {
         type: 'input',
         name: 'author',
@@ -276,18 +276,18 @@ inquirer
     ]);
 
     try {
-      const libro = await createOne({
-        author: respuestasCrear.author,
-        title: respuestasCrear.title,
-        description: respuestasCrear.description,
-        year: respuestasCrear.year,
-        genre: respuestasCrear.genre,
-        rating: respuestasCrear.rating,
-        numPages: respuestasCrear.numPages,
-        format: respuestasCrear.format,
+      const book = await createOne({
+        author: createAnswer.author,
+        title: createAnswer.title,
+        description: createAnswer.description,
+        year: createAnswer.year,
+        genre: createAnswer.genre,
+        rating: createAnswer.rating,
+        numPages: createAnswer.numPages,
+        format: createAnswer.format,
       })
 
-      console.log('Libro creado exitosamente:', libro);
+      console.log('Libro creado exitosamente:', book);
     } catch (error) {
       console.error(
         'Ocurrió un error al crear el libro ' +
