@@ -21,9 +21,7 @@ Características
 Instalación 
 
 
-    git clone https://github.com/tu-nombre-de-usuario/sistema-gestion-libros.git
-
-    cd sistema-gestion-libros
+    git clone https://github.com/tu-nombre-de-usuario/sistema-gestion-libros.git](https://github.com/FedeCortes/LibrosCRUD
 
     npm install
 
