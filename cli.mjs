@@ -297,42 +297,42 @@ inquirer
     break;
 
       case 'Mostrar todos los libros':
-        const respuestaMostrar = await inquirer.prompt([
+        const AnswerFetch = await inquirer.prompt([
             {
                 type: 'list',
-                name: 'opcion',
+                name: 'option',
                 message: '¿Cómo desea ver los libros?',
                 choices: ['Mostrar todos los libros', 'Filtrar por autor y título'],
             },
         ]);
     
-        if (respuestaMostrar.opcion === 'Mostrar todos los libros') {
+        if (AnswerFetch.option === 'Mostrar todos los libros') {
             // Lógica para mostrar todos los libros
             try {
-              const libros = await booksFetch();
+              const books = await booksFetch();
       
-              if (libros.length === 0) {
+              if (books.length === 0) {
                   console.log('No se encontraron libros.');
               } else {
-                  const opcionesLibros = libros.map(libro => {
+                  const optionBooks = books.map(book => {
                       return {
-                          name: `Título: ${libro.title} - Autor: ${libro.author}`,
-                          value: libro // El valor asociado será el objeto completo del libro
+                          name: `Título: ${book.title} - Autor: ${book.author}`,
+                          value: book // El valor asociado será el objeto completo del libro
                       };
                   });
       
-                  const respuestasSeleccion = await inquirer.prompt([
+                  const selectedAnswer = await inquirer.prompt([
                       {
                           type: 'list',
-                          name: 'libroSeleccionado',
+                          name: 'selectedBook',
                           message: 'Selecciona un libro para ver más información:',
-                          choices: opcionesLibros
+                          choices: optionBooks
                       }
                   ]);
       
                   // El libro seleccionado estará disponible en respuestasSeleccion.libroSeleccionado
-                  const libroSeleccionado = respuestasSeleccion.libroSeleccionado;
-                  console.log('Información detallada del libro seleccionado:', libroSeleccionado);
+                  const selectedBook = selectedAnswer.selectedBook;
+                  console.log('Información detallada del libro seleccionado:', selectedBook);
               }
       
           } catch (error) {
@@ -340,7 +340,7 @@ inquirer
           }
         } else {
             // Preguntas adicionales si elige filtrar
-            const respuestasFiltrar = await inquirer.prompt([
+            const filterAnswers = await inquirer.prompt([
                 {
                     type: 'input',
                     name: 'author',
@@ -354,8 +354,8 @@ inquirer
             ]);
     
             // Lógica para filtrar por autor y título
-            const librosFiltrados = await booksFetch(respuestasFiltrar.author, respuestasFiltrar.title);
-            console.log(librosFiltrados);
+            const filteredBooks = await booksFetch(filterAnswers.author, filterAnswers.title);
+            console.log(filteredBooks);
         }
         break;
 
