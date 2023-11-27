@@ -83,7 +83,7 @@ Endpoint: Actualizar un libro por ID
     Parámetros de Ruta: id - ID del libro a actualizar
     Datos del Cuerpo: Detalles del libro (author, title, description, year, genre, rating, numPages, format)
     Respuesta Exitosa: Código 200 - Libro actualizado exitosamente
-    Respuesta Errónea: Código 400 - Error de validación, Código 404 - Libro no encontrado, Código 500 - Error al actualizar el libro
+    Respuesta Errónea: Código 400 - Error de validación, Código 404
 
 Endpoint: Eliminar un libro por ID
 
