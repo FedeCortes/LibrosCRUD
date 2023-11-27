@@ -5,7 +5,6 @@ import express from 'express';
 import {
   createOne,
   booksFetch,
-  get,
   findByIdAndDelete,
   findByIdAndUpdate,
 } from './Services/libroServices.mjs';
