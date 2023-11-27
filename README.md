@@ -1,49 +1,92 @@
-ProyectoLibros
+*Sistema de Gestión de Libros*
 
-Este repositorio contiene un proyecto de CRUD (Crear, Leer, Actualizar, Borrar) de libros desarrollado en Node.js. El proyecto permite la gestión de una lista de libros almacenados en un archivo JSON, con comandos específicos para interactuar con ellos.
-Características Destacadas:
+Este proyecto es un sistema de gestión de libros desarrollado en NodeJS que utiliza MongoDB como base de datos, un servidor Express.js y una interfaz de línea de comandos basada en Inquirer para la interacción. El sistema permite realizar diversas operaciones en los libros, como crear, actualizar, borrar y obtener.
+Contenido
 
-    Crear Libros: Agrega nuevos libros especificando el autor, el título y una descripción. Se aplican validaciones para garantizar la calidad de los datos ingresados.
+    Características
+    Instalación
+    Uso
+    Documentación de la API
+    
 
-    Listar Libros: Muestra la lista completa de libros disponibles. Es posible filtrar por autor y título.
+Características
 
-    Obtener Libro por ID: Busca un libro en particular según su identificador único.
+    Crear, actualizar, borrar y obtener libros.
+    Integración con MongoDB para el almacenamiento de datos.
+    Servidor Express.js para exponer puntos finales de la API.
+    Interfaz de línea de comandos mediante Inquirer para la interacción del usuario.
 
-    Actualizar Libro: Modifica los detalles de un libro existente, incluyendo el autor, el título y la descripción. Se aplican validaciones para mantener la integridad de los datos.
 
-    Borrar Libro: Elimina un libro de la lista según su ID.
+Instalación 
 
-Cómo Utilizar:
 
-    Clona este repositorio en tu entorno local.
+    git clone https://github.com/tu-nombre-de-usuario/sistema-gestion-libros.git
 
-    Ejecuta npm install para instalar las dependencias necesarias.
+    cd sistema-gestion-libros
 
-    Utiliza los siguientes comandos de línea de comandos para interactuar con la aplicación:
+    npm install
 
-        Crear un Libro: node cli.js createOne --author [Autor] --title [Título] --description [Descripción]
-            Crea un nuevo libro especificando el autor, el título y una descripción. Se aplican validaciones para garantizar la calidad de los datos ingresados.
+Configurar las variables de entorno:
 
-        Listar Todos los Libros: node cli.js find
-            Muestra la lista completa de libros disponibles.Se puede filtrar por author y por title
+    Crea un archivo .env en el directorio raíz y agrega lo siguiente:
 
-        Obtener un Libro por ID: node cli.js get --id [ID]
-            Busca un libro en particular según su identificador único.
+    PORT=5000
+    MONGO_DB="mongodb://127.0.0.1:7303"
 
-        Actualizar un Libro: node cli.js findByIdAndUpdate --id [ID] --nuevoAuthor [Nuevo Autor] --nuevoTitulo [Nuevo Título] --nuevaDescription [Nueva Descripción]
-            Modifica los detalles de un libro existente, incluyendo el autor, el título y la descripción. Se aplican validaciones para mantener la integridad de los datos.
 
-        Borrar un Libro: node cli.js findByIdAndUpdate --id [ID]
-            Elimina un libro de la lista según su ID.
+Uso
 
-Estructura del Proyecto:
+Sigue estos pasos para interactuar con el sistema de gestión de libros:
 
-    cli.js: El archivo principal que contiene la lógica para gestionar los comandos de línea de comandos.
+Inicia el servidor (si aún no está en ejecución):
 
-    Services/libroServices.js: Contiene funciones para cargar y guardar libros en un archivo JSON.
+       node cli.mjs
+   
+        Interactúa con el sistema a través de la interfaz de línea de comandos.
+    
 
-    Models/Libro.js: Define el modelo de libro utilizado en la aplicación.
+Documentación de la API
+Endpoint: Obtener todos los libros
 
-    libros.json: El archivo JSON que almacena la lista de libros.
+    Ruta: /api/libros
+    Método: GET
+    Descripción: Obtener todos los libros almacenados en la base de datos.
+    Respuesta Exitosa: Código 200 - OK
+    Respuesta Errónea: Código 500 - Error al obtener los libros
 
-    Funciones de Validación: Se incluyen funciones que verifican la integridad de los datos ingresados, como autor, título y descripción.
+Endpoint: Obtener un libro por ID
+
+    Ruta: /api/libros/:id
+    Método: GET
+    Descripción: Obtener un libro específico por su ID.
+    Parámetros de Ruta: id - ID del libro
+    Respuesta Exitosa: Código 200 - OK
+    Respuesta Errónea: Código 404 - Libro no encontrado, Código 500 - Error al obtener el libro
+
+Endpoint: Crear un nuevo libro
+
+    Ruta: /api/libros
+    Método: POST
+    Descripción: Crear un nuevo libro con la información proporcionada en el cuerpo de la solicitud.
+    Datos del Cuerpo: Detalles del libro (author, title, description, year, genre, rating, numPages, format)
+    Respuesta Exitosa: Código 201 - Libro creado exitosamente
+    Respuesta Errónea: Código 400 - Error de validación, Código 500 - Error al crear el libro
+
+Endpoint: Actualizar un libro por ID
+
+    Ruta: /api/libros/:id
+    Método: PUT
+    Descripción: Actualizar un libro existente por su ID con la información proporcionada en el cuerpo de la solicitud.
+    Parámetros de Ruta: id - ID del libro a actualizar
+    Datos del Cuerpo: Detalles del libro (author, title, description, year, genre, rating, numPages, format)
+    Respuesta Exitosa: Código 200 - Libro actualizado exitosamente
+    Respuesta Errónea: Código 400 - Error de validación, Código 404 - Libro no encontrado, Código 500 - Error al actualizar el libro
+
+Endpoint: Eliminar un libro por ID
+
+    Ruta: /api/libros/:id
+    Método: DELETE
+    Descripción: Eliminar un libro por su ID.
+    Parámetros de Ruta: id - ID del libro a eliminar
+    Respuesta Exitosa: Código 200 - Libro eliminado exitosamente
+    Respuesta Errónea: Código 404 - Libro no encontrado, Código 500 - Error al eliminar el libro
